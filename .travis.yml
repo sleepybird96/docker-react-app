@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "creating docker file"
+  - docker build -t sleepybird96/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true sleepybird96/docker-react-app npm run test --
+
+after_success:
+  - echo "Test success"
